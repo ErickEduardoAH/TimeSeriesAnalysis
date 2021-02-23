@@ -82,3 +82,25 @@ def AditiveDecomposition(timeSeries,Xt,s):
     timeSeries[Xt+'_est'] = timeSeries['Trend']+timeSeries['Seasonal']
     timeSeries['Noise'] = timeSeries[Xt]-timeSeries[Xt+'_est']
     return timeSeries
+
+def plot_ar_p_roots(ar_p_model,figsize=(10,10)):
+    theta = np.linspace(0, 2*np.pi, 100)
+    X = [z.real for z in ar_p_model.arroots] 
+    Y = [z.imag for z in ar_p_model.arroots] 
+    limit = max(abs(max(X)),abs(min(X)),abs(max(Y)),abs(min(Y)))+0.5
+    plt.figure(figsize=figsize)
+    plt.xlim(-1*limit,limit)
+    plt.ylim(-1*limit,limit)
+    plt.plot(np.cos(theta),np.sin(theta),c='blue')
+    plt.scatter(X,Y)
+    
+def plot_ma_q_roots(ma_q_model,figsize=(10,10)):
+    theta = np.linspace(0, 2*np.pi, 100)
+    X = [z.real for z in ma_q_model.maroots] 
+    Y = [z.imag for z in ma_q_model.maroots] 
+    limit = max(abs(max(X)),abs(min(X)),abs(max(Y)),abs(min(Y)))+0.5
+    plt.figure(figsize=figsize)
+    plt.xlim(-1*limit,limit)
+    plt.ylim(-1*limit,limit)
+    plt.plot(np.cos(theta),np.sin(theta),c='blue')
+    plt.scatter(X,Y)
